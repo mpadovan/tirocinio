@@ -1,0 +1,15 @@
+{
+  "name": "webquiz",
+  "version": "1.0.0",
+  "description": "Quiz for testing Matteo Padovan unity work",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matteo Padovan",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^2.3.3",
+    "express": "^4.17.1"
+  }
+}
