@@ -27,7 +27,7 @@ var app = new Vue({
                 .then((res) => {
                     dataj = res.data;
                     if (typeof this.videos[dataj.count] !== 'undefined') {
-                        this.$refs.videotobeplayed.src = `http://localhost:3000/videos10/${this.videos[dataj.count]}`;
+                        this.$refs.videotobeplayed.src = `${window.location.origin}/videos10/${this.videos[dataj.count]}`;
                         this.currentVideo = this.videos[dataj.count];
                         this.videoready = true;
                         this.weight = 5;
@@ -54,7 +54,7 @@ var app = new Vue({
                         dataj = res.data;
                         this.videos = dataj.videos;
                         if (typeof this.videos[dataj.count] !== 'undefined') {
-                            this.$refs.videotobeplayed.src = `http://localhost:3000/videoraw/${dataj.videos[dataj.count]}`;
+                            this.$refs.videotobeplayed.src = `${window.location.origin}/videos10/${dataj.videos[dataj.count]}`;
                             this.currentVideo = dataj.videos[dataj.count];
                             this.videoready = true;
                             this.hasCookie = true;
