@@ -12,7 +12,8 @@ var app = new Vue({
         videos: [],
         hasCookie: false,
         terms: false,
-        termserr: false
+        termserr: false,
+        finished: false
     },
     methods: {
         nextVideo() {
@@ -26,11 +27,13 @@ var app = new Vue({
                 .then((res) => {
                     dataj = res.data;
                     if (typeof this.videos[dataj.count] !== 'undefined') {
-                        this.$refs.videotobeplayed.src = `http://localhost:3000/videoraw/${this.videos[dataj.count]}`;
+                        this.$refs.videotobeplayed.src = `http://localhost:3000/videos10/${this.videos[dataj.count]}`;
                         this.currentVideo = this.videos[dataj.count];
                         this.videoready = true;
                         this.weight = 5;
                         this.masc = 5;
+                    } else {
+                        this.finished = true;
                     }
                 })
         },
@@ -45,16 +48,20 @@ var app = new Vue({
             if (parseInt(this.$refs.videotobeplayed.currentTime) >= 10) this.$refs.videotobeplayed.pause();
         },
         starttest(e) {
-            if(this.terms)
-            axios.get('/videos')
-                .then((res) => {
-                    dataj = res.data;
-                    this.videos = dataj.videos;
-                    this.$refs.videotobeplayed.src = `http://localhost:3000/videoraw/${dataj.videos[dataj.count]}`;
-                    this.currentVideo = dataj.videos[dataj.count];
-                    this.videoready = true;
-                    this.hasCookie = true;
-                })
+            if (this.terms)
+                axios.get('/videos')
+                    .then((res) => {
+                        dataj = res.data;
+                        this.videos = dataj.videos;
+                        if (typeof this.videos[dataj.count] !== 'undefined') {
+                            this.$refs.videotobeplayed.src = `http://localhost:3000/videoraw/${dataj.videos[dataj.count]}`;
+                            this.currentVideo = dataj.videos[dataj.count];
+                            this.videoready = true;
+                            this.hasCookie = true;
+                        } else {
+                            this.finished = true;
+                        }
+                    })
             else this.termserr = true;
         }
     },

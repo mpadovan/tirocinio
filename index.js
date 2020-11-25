@@ -48,7 +48,7 @@ app.post('/videos/:name', (req, res) => {
 });
 
 app.listen(process.env.PORT || port, () => {
-    fs.readFile(path.join(process.env.PWD, '/videos.json'), (err, data) => {
+    fs.readFile(path.join(process.env.PWD, '/videos10.json'), (err, data) => {
         videos = JSON.parse(data.toString());
     });
     console.log(`Example app listening at http://localhost:${port}`)

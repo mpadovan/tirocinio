@@ -13,7 +13,10 @@
 
 <body>
     <div id="app">
-        <div v-show="!hasCookie">
+        <div v-show="finished" class="container-fluid text-center mt-5">
+            <h3>Grazie per aver partecipato al test</h3>
+        </div>
+        <div v-show="!hasCookie && !finished">
             <div v-show="isChrome" class="container-fluid text-center mt-5">
                 <h1>Test</h1>
                 <p>Terms of use</p>
@@ -28,7 +31,7 @@
                 Usa Chrome dal PC per completare il test
             </div>
         </div>
-        <div v-show="hasCookie">
+        <div v-show="hasCookie && !finished">
             <div class="video-wrapper embed-responsive-item">
                 <video class="video embed-responsive-item" id="videotest" ref="videotobeplayed"
                     @timeupdate="videoupdate">
