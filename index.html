@@ -16,12 +16,61 @@
         <div v-show="finished" class="container-fluid text-center mt-5">
             <h3>Grazie per aver partecipato al test</h3>
         </div>
-        <div v-show="!hasCookie && !finished">
-            <div v-show="isChrome" class="container-fluid text-center mt-5">
+        <div v-show="!hasCookie && !finished" class="container intro-container text-center mt-5 py-3">
+            <div v-show="isChrome">
                 <h1>Test</h1>
                 <p>Terms of use</p>
-                <p>Siegazione</p>
-                <label for="terms">Prosegui il test</label>
+                <h5 class="mx-5">Spiegazione</h5>
+                <p class="mx-5">Proseguendo con il test ti verranno mostrate diverse simulazioni dove degli avatar
+                    umanoidi
+                    cammineranno in diversi ambienti, per ogni video dovrai dare una valutazione in termini di peso
+                    (quanto pesa l'avatar nel video)
+                    ed in termini di mascolinità (quanto valuti mascolino l'avatar nel video). Puoi chiudere il browser
+                    in ogni momento e sarai in grado di
+                    riprendere il test da dove avevi concluso in qualsiasi momento. Il test dura meno di 10 minuti.
+                </p>
+                <h5 class="mx-5">Per aiutarci a rendere il test più accurato possibile inserisci i dati nel form sottostante, nessun dato è obbligatorio</h5>
+                <div class="form-intro">
+                    <div class="row justify-center-align align-items-center">
+                        <div class="col">
+                            <label for="age">Inserisci la tua età: </label>
+                            <select name="age" id="age" v-model="age">
+                                <option v-for="i in 63" v-bind:value="i+17">{{i+17}}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="sex">Inserisci il gender con cui ti identifichi: </label>
+                            <select v-model="gender">
+                                <option v-for="option in genders" v-bind:value="option.value">
+                                    {{ option.text }}
+                                  </option>
+                            </select>
+                            <div v-show="othersex">
+                                <label for="other_sex">Specifica il gender con cui ti identifichi:</label>
+                                <input type="text" v-model="othergender" id="other_sex">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-center-align align-items-center">
+                        <div class="col">
+                            <label for="music" class="d-block">Inserisci il tuo livello in termini di esperienza
+                                musicale: </label>
+                            <div class="d-inline font-weight-bold align-middle">nessuna</div>
+                            <input id="music" type="range" v-model="music" min="1" max="7"
+                                class="d-inline align-middle custom-range custom-range-intro">
+                            <div class="d-inline font-weight-bold align-middle">musicista professionista</div>
+                        </div>
+                        <div class="col">
+                            <label for="games" class="d-block">Inserisci il tuo livello in termini di esperienza
+                                videoludica: </label>
+                            <div class="d-inline font-weight-bold align-middle">nessuna</div>
+                            <input id="game" type="range" v-model="games" min="1" max="7"
+                                class="d-inline align-middle custom-range custom-range-intro">
+                            <div class="d-inline font-weight-bold align-middle">gioco molto spesso</div>
+                        </div>
+                    </div>
+                </div>
+                <label for="terms">Accetto al trattamento dei dati personali ed intendo proseguire con il test</label>
                 <input type="checkbox" name="terms" id="terms" v-model="terms" required>
                 <br>
                 <p style="color:red">{{ (termserr) ? 'Accetta i termini per continuare' : ''}}</p>
@@ -55,29 +104,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-1 text-right " style="position: relative;">
-                        <span class="go-bot-right">Molto leggero</span>
-                    </div>
-                    <div class="col text-center font-weight-bold">
-                        <label for="peso">Peso</label>
-                        <input type="range" class="custom-range" min="0" max="10" id="peso" step="1" v-model="weight">
-                    </div>
-                    <div class="col-md-1 text-left " style="position: relative;">
-                        <span class="go-bot-left">Molto pesante</span>
+                <div class="row justify-center-align align-items-center">
+                    <div class="col text-center">
+                        <label for="weight" class="bold"><h5>Peso</h5></label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-1 text-right " style="position: relative;">
-                        <span class="go-bot-right">Molto leggero</span>
+                <div class="row justify-center-align align-items-center">
+                    <div class="col.auto">
+                        <div class="d-inline align-middle">Leggero</div>
                     </div>
-                    <div class="col text-center font-weight-bold">
-                        <label for="mascolinita">Mascolinità</label>
-                        <input type="range" class="custom-range" min="0" max="10" id="mascolinita" step="1"
-                            v-model="masc">
+                    <div class="col"><input type="range" class="custom-range d-inline align-middle text-center font-weight-bold"
+                            min="0" max="100" id="weight" step="1" v-model="weight">
                     </div>
-                    <div class="col-md-1 text-left " style="position: relative;">
-                        <span class="go-bot-left">Molto pesante</span>
+                    <div class="col.auto">
+                        <div class="d-inline align-middle">Pesante</div>
+                    </div>
+
+                </div>
+
+                <div class="row justify-center-align align-items-center">
+                    <div class="col text-center">
+                        <label for="mascolinita" class="bold"><h5>Mascolinità</h5></label>
+                    </div>
+                </div>
+                <div class="row justify-center-align align-items-center">
+                    <div class="col.auto">
+                        <div class="d-inline align-middle">Bassa</div>
+                    </div>
+                    <div class="col"><input type="range" class="custom-range d-inline align-middle text-center font-weight-bold"
+                            min="0" max="100" id="mascolinita" step="1" v-model="masc">
+                    </div>
+                    <div class="col.auto">
+                        <div class="d-inline align-middle">Alta</div>
                     </div>
                 </div>
                 <div class="row">

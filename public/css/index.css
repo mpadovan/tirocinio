@@ -39,3 +39,20 @@
     width: 100vw;
     top: 45%;
 }
+
+.custom-range-intro {
+    width: initial !important;
+}
+
+.intro-container {
+    border:1px solid rgba(0, 0, 0, .45);
+    border-radius: 15px;
+}
+
+h5, h1, .bold {
+    color: #000;
+}
+
+p, label, div {
+    color: rgba(0, 0, 0, .5);
+}

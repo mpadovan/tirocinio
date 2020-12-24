@@ -3,8 +3,9 @@ var app = new Vue({
     data: {
         videoready: false,
         videoerror: false,
-        masc: 5,
-        weight: 5,
+        masc: 50,
+        weight: 50,
+        age: undefined,
         time: null,
         dataj: null,
         video: null,
@@ -13,7 +14,31 @@ var app = new Vue({
         hasCookie: false,
         terms: false,
         termserr: false,
-        finished: false
+        finished: false,
+        genders: [
+            {
+                text: 'Maschio',
+                value: 'Male'
+            },
+            {
+                text: 'Femmina',
+                value: 'Female'
+            },
+            {
+                text: 'Altro',
+                value: null
+            },
+        ],
+        gender: undefined,
+        othersex: false,
+        othergender: undefined,
+        music: undefined,
+        games: undefined,
+    },
+    watch: {
+        gender(val) {
+            val === null ? this.othersex = true : this.othersex = false;
+        }
     },
     methods: {
         nextVideo() {
@@ -48,8 +73,15 @@ var app = new Vue({
             if (parseInt(this.$refs.videotobeplayed.currentTime) >= 10) this.$refs.videotobeplayed.pause();
         },
         starttest(e) {
-            if (this.terms)
-                axios.get('/videos')
+            if (this.terms) {
+                if(this.gender === null && this.othergender !== undefined) this.gender = this.othergender;
+                axios.post('/videos',
+                    {
+                        age: this.age,
+                        sex: this.gender,
+                        music: this.music,
+                        videogames: this.videogames
+                    })
                     .then((res) => {
                         dataj = res.data;
                         this.videos = dataj.videos;
@@ -62,6 +94,7 @@ var app = new Vue({
                             this.finished = true;
                         }
                     })
+            }
             else this.termserr = true;
         }
     },
