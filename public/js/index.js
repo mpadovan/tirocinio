@@ -55,8 +55,8 @@ var app = new Vue({
                         this.$refs.videotobeplayed.src = `${window.location.origin}/videos10/${this.videos[dataj.count]}`;
                         this.currentVideo = this.videos[dataj.count];
                         this.videoready = true;
-                        this.weight = 5;
-                        this.masc = 5;
+                        this.weight = 50;
+                        this.masc = 50;
                     } else {
                         this.finished = true;
                     }
@@ -80,7 +80,7 @@ var app = new Vue({
                         age: this.age,
                         sex: this.gender,
                         music: this.music,
-                        videogames: this.videogames
+                        videogames: this.games
                     })
                     .then((res) => {
                         dataj = res.data;

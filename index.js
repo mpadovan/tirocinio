@@ -5,6 +5,7 @@ const fs = require('fs');
 const session = require('express-session');
 const uuid = require('uuid')
 var path = require('path')
+const shuffle = require('shuffle-array')
 const { Client } = require('pg')
 
 let client;
@@ -31,12 +32,11 @@ app.use(session({
     secret: 'sessione bellix',
     resave: false,
     saveUninitialized: true,
-    //cookie: { expires: new Date(253402300000000) }
+    cookie: { expires: new Date(253402300000000) }
 }))
 
 const port = 3000
 var videos = null;
-
 process.env.PWD = process.cwd();
 app.use(express.static(path.join(process.env.PWD, 'public')));
 
@@ -55,7 +55,10 @@ app.post('/videos', (req, res) => {
         client.query('INSERT INTO Users VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING',
             [req.session.view, req.body.age, req.body.sex, req.body.music, req.body.videogames])
             .then(resp => {
-                res.json({ videos: videos.videos, count: req.session.count });
+                if(req.session.videos === undefined) {
+                    req.session.videos = shuffle(videos.videos)
+                }
+                res.json({ videos: req.session.videos, count: req.session.count });
             })
             .catch(err => {
                 console.log(err);
@@ -80,9 +83,13 @@ app.post('/videos/:name', (req, res) => {
 });
 
 app.listen(process.env.PORT || port, async () => {
-    fs.readFile(path.join(process.env.PWD, '/videos10.json'), (err, data) => {
-        videos = JSON.parse(data.toString());
-    });
+    fs.readdir(path.join(process.env.PWD, '/public/videos10'), (err, data) => {
+        videos = {videos: []};
+        data.forEach(element => {
+            videos.videos.push(element);
+        });
+        console.log(videos.videos)
+    })
     await client.connect()
     client.query(`CREATE TABLE IF NOT EXISTS Users (
         uuid VARCHAR(50),
