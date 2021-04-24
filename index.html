@@ -19,15 +19,23 @@
         <div v-show="!hasCookie && !finished" class="container intro-container text-center mt-5 py-3">
             <div v-show="isChrome">
                 <h1>Test</h1>
-                <p>Terms of use</p>
+                <p>
+                    <a href="https://www.iubenda.com/privacy-policy/73337597"
+                        class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe "
+                        title="Privacy Policy ">Privacy Policy</a>
+                    <script
+                        type="text/javascript">(function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; if (w.addEventListener) { w.addEventListener("load", loader, false); } else if (w.attachEvent) { w.attachEvent("onload", loader); } else { w.onload = loader; } })(window, document);</script>
+                </p>
                 <h5 class="mx-5">Spiegazione</h5>
                 <p class="mx-5">Proseguendo con il test ti verranno mostrate diverse simulazioni dove degli avatar
                     umanoidi
                     cammineranno in diversi ambienti, per ogni video dovrai dare una valutazione in termini di peso
                     (quanto pesa l'avatar nel video)
-                    ed in termini di mascolinità (quanto valuti mascolino l'avatar nel video). Il test dura meno di 10 minuti.
+                    ed in termini di mascolinità (quanto valuti mascolino l'avatar nel video). Il test dura meno di 10
+                    minuti.
                 </p>
-                <h5 class="mx-5">Per aiutarci a rendere il test più accurato possibile inserisci i dati nel form sottostante, nessun dato è obbligatorio</h5>
+                <h5 class="mx-5">Per aiutarci a rendere il test più accurato possibile inserisci i dati nel form
+                    sottostante, nessun dato è obbligatorio</h5>
                 <div class="form-intro">
                     <div class="row justify-center-align align-items-center">
                         <div class="col">
@@ -41,7 +49,7 @@
                             <select v-model="gender">
                                 <option v-for="option in genders" v-bind:value="option.value">
                                     {{ option.text }}
-                                  </option>
+                                </option>
                             </select>
                             <div v-show="othersex">
                                 <label for="other_sex">Specifica il gender con cui ti identifichi:</label>
@@ -104,15 +112,18 @@
                 </div>
                 <div class="row justify-center-align align-items-center">
                     <div class="col text-center">
-                        <label for="weight" class="bold"><h5>Peso</h5></label>
+                        <label for="weight" class="bold">
+                            <h5>Peso</h5>
+                        </label>
                     </div>
                 </div>
                 <div class="row justify-center-align align-items-center">
                     <div class="col.auto">
                         <div class="d-inline align-middle">Leggero</div>
                     </div>
-                    <div class="col"><input type="range" class="custom-range d-inline align-middle text-center font-weight-bold"
-                            min="0" max="100" id="weight" step="1" v-model="weight">
+                    <div class="col"><input type="range"
+                            class="custom-range d-inline align-middle text-center font-weight-bold" min="0" max="100"
+                            id="weight" step="1" v-model="weight">
                     </div>
                     <div class="col.auto">
                         <div class="d-inline align-middle">Pesante</div>
@@ -122,15 +133,18 @@
 
                 <div class="row justify-center-align align-items-center">
                     <div class="col text-center">
-                        <label for="mascolinita" class="bold"><h5>Mascolinità</h5></label>
+                        <label for="mascolinita" class="bold">
+                            <h5>Mascolinità</h5>
+                        </label>
                     </div>
                 </div>
                 <div class="row justify-center-align align-items-center">
                     <div class="col.auto">
                         <div class="d-inline align-middle">Bassa</div>
                     </div>
-                    <div class="col"><input type="range" class="custom-range d-inline align-middle text-center font-weight-bold"
-                            min="0" max="100" id="mascolinita" step="1" v-model="masc">
+                    <div class="col"><input type="range"
+                            class="custom-range d-inline align-middle text-center font-weight-bold" min="0" max="100"
+                            id="mascolinita" step="1" v-model="masc">
                     </div>
                     <div class="col.auto">
                         <div class="d-inline align-middle">Alta</div>
